@@ -53,10 +53,10 @@ export class SqsInputStream extends Transform {
     if (process.env[env.SQS_BATCH_SIZE]) {
       config.batchSize = parseInt(process.env[env.SQS_BATCH_SIZE]!, 10);
     }
-    if (!process.env[env.SQS_VISIBILITY_TIMEOUT]) {
-      throw new Error(`process.env.${env.SQS_VISIBILITY_TIMEOUT} must be set`);
+    if (process.env[env.SQS_VISIBILITY_TIMEOUT]) {
+      config.visibilityTimeout = parseInt(process.env[env.SQS_VISIBILITY_TIMEOUT]!, 10);
     }
-    config.visibilityTimeout = parseInt(process.env[env.SQS_VISIBILITY_TIMEOUT]!, 10);
+
     if (process.env[env.SQS_POLLING_TIMEOUT_MS]) {
       config.pollingTimeout = parseInt(process.env[env.SQS_POLLING_TIMEOUT_MS]!, 10);
     }
