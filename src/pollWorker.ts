@@ -12,10 +12,12 @@ const log = getLogger(conf.logger);
 const client = new SQSClient(conf.sqsClientConfig);
 const { queueUrl } = conf;
 
-let pollingTimeout = conf.pollingTimeout;
+let { pollingTimeout } = conf;
 
-parentPort!.on('message', async (message: { type: 'delete', queue: string, 'handle': string }) => {
-  const { type, queue, handle } = message;
+parentPort!.on('message', async (message: { type: 'delete', queue: string, handle: string }) => {
+  const {
+    type, queue, handle,
+  } = message;
 
   if (type === 'delete') {
     try {

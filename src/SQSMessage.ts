@@ -1,4 +1,4 @@
 export type SQSMessage = {
-  body: object,
+  body: any,
   handle: string
 };

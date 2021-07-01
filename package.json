@@ -1,6 +1,6 @@
 {
   "name": "sqs-input-stream",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "Simple long polling stream for SQS",
   "keywords": [
     "AWSSQS",
@@ -25,20 +25,20 @@
   },
   "homepage": "https://github.com/anton-nagornyi/sqs-input-stream#readme",
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.17.0"
+    "@aws-sdk/client-sqs": "^3.19.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
-    "@typescript-eslint/eslint-plugin": "^4.26.0",
-    "eslint": "^7.27.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "copy-files-from-to": "^3.2.0",
+    "eslint": "^7.29.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-plugin-import": "^2.23.4",
     "jest": "^26.6.3",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.6",
     "ts-node": "^9.1.1",
-    "typescript": "^4.3.2",
-    "copy-files-from-to": "^3.2.0",
-    "rimraf": "^3.0.2"
+    "typescript": "^4.3.4"
   },
   "copyFiles": [
     {
