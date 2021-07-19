@@ -19,6 +19,7 @@ export class SqsInputStream extends Transform {
       visibilityTimeout: config.visibilityTimeout || 1,
       sqsClientConfig: config.sqsClientConfig || {},
       logger: config.logger || '',
+      region: config.region,
     };
 
     this.poll = new Worker(this.getWorkerPath(), { workerData: this.conf });
@@ -44,6 +45,7 @@ export class SqsInputStream extends Transform {
       SQS_BATCH_SIZE: `${envPrefix}_BATCH_SIZE`,
       SQS_VISIBILITY_TIMEOUT: `${envPrefix}_VISIBILITY_TIMEOUT`,
       SQS_POLLING_TIMEOUT_MS: `${envPrefix}_POLLING_TIMEOUT_MS`,
+      SQS_REGION: `${envPrefix}_REGION`,
     };
 
     if (!process.env[env.SQS_URL]) {
@@ -59,6 +61,10 @@ export class SqsInputStream extends Transform {
 
     if (process.env[env.SQS_POLLING_TIMEOUT_MS]) {
       config.pollingTimeout = parseInt(process.env[env.SQS_POLLING_TIMEOUT_MS]!, 10);
+    }
+
+    if (process.env[env.SQS_REGION]) {
+      config.region = process.env[env.SQS_REGION];
     }
     return config;
   };

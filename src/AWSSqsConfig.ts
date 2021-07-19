@@ -1,6 +1,6 @@
 import { SQSClientConfig } from '@aws-sdk/client-sqs/SQSClient';
 
-export type AWSSqsConfig = {
+type BaseAWSSqsConfig = {
   pollingTimeout?: number;
   queueUrl: string;
   batchSize?: number;
@@ -9,4 +9,6 @@ export type AWSSqsConfig = {
   logger?: string
 };
 
-export type AWASqsConfigRequired = Required<AWSSqsConfig>;
+export type AWSSqsConfig = BaseAWSSqsConfig & { region?: string };
+
+export type AWASqsConfigRequired = { region?: string } & Required<BaseAWSSqsConfig>;
