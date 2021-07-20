@@ -19,8 +19,11 @@ export class SqsInputStream extends Transform {
       visibilityTimeout: config.visibilityTimeout || 1,
       sqsClientConfig: config.sqsClientConfig || {},
       logger: config.logger || '',
-      region: config.region,
     };
+
+    if (config.region) {
+      this.conf.sqsClientConfig.region = config.region;
+    }
 
     this.poll = new Worker(this.getWorkerPath(), { workerData: this.conf });
 

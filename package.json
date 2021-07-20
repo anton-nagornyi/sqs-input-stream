@@ -1,6 +1,6 @@
 {
   "name": "sqs-input-stream",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Simple long polling stream for SQS",
   "keywords": [
     "AWSSQS",
