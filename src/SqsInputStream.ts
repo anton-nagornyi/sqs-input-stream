@@ -4,7 +4,6 @@ import * as path from 'path';
 import { SQSClientConfig } from '@aws-sdk/client-sqs/SQSClient';
 import { SQSMessage } from './SQSMessage';
 import { AWASqsConfigRequired, AWSSqsConfig } from './AWSSqsConfig';
-import { setWorkerInstance } from './workerHelpers';
 
 export class SqsInputStream extends Transform {
   constructor(config: AWSSqsConfig) {
@@ -27,9 +26,9 @@ export class SqsInputStream extends Transform {
 
     this.poll = new Worker(this.getWorkerPath(), { workerData: this.conf });
 
-    setWorkerInstance(this.poll, this.conf);
-
     this.poll.on('message', (message: SQSMessage) => {
+      // eslint-disable-next-line no-param-reassign
+      message.delete = this.deleteMessage;
       this.push(message);
     });
   }
@@ -77,5 +76,13 @@ export class SqsInputStream extends Transform {
       return path.join(__dirname, '../dist/pollWorker.js');
     }
     return path.join(__dirname, 'pollWorker.js');
+  };
+
+  private deleteMessage = async (handle: string) => {
+    this.poll.postMessage({
+      type: 'delete',
+      queue: this.conf.queueUrl,
+      handle,
+    });
   };
 }

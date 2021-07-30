@@ -1,4 +1,5 @@
 export type SQSMessage = {
   body: any,
-  handle: string
+  handle: string,
+  delete: (handle: string) => Promise<void>;
 };

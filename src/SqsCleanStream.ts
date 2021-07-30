@@ -1,6 +1,5 @@
 import { Transform, TransformCallback } from 'stream';
 import { SQSMessage } from './SQSMessage';
-import { deleteMessage } from './workerHelpers';
 
 export class SqsCleanStream extends Transform {
   constructor() {
@@ -11,7 +10,9 @@ export class SqsCleanStream extends Transform {
 
   // eslint-disable-next-line no-underscore-dangle
   _transform(message: SQSMessage, encoding: BufferEncoding, next: TransformCallback): void {
-    deleteMessage(message.handle);
+    if (message.delete) {
+      message.delete(message.handle);
+    }
     next(null, message);
   }
 }
